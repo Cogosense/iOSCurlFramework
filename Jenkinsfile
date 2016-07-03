@@ -5,7 +5,7 @@ properties properties: [
     ]
 ]
 
-node(ios) {
+node('ios') {
     def contributors = null
     currentBuild.result = "SUCCESS"
 
