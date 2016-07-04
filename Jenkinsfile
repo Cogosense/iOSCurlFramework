@@ -12,7 +12,6 @@ node('osx && ios') {
     sshagent(['38bf8b09-9e52-421a-a8ed-5280fcb921af']) {
 
 	// Load the SCM util scripts first
-
 	checkout([$class: 'GitSCM',
 		    branches: [[name: '*/master']],
 		    doGenerateSubmoduleConfigurations: false,
