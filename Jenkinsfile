@@ -9,7 +9,7 @@ node('osx && ios') {
     def contributors = null
     currentBuild.result = "SUCCESS"
 
-    sh 'security unlock-keychain -p `cat $HOME/.pass` $HOME/Library/Keychains/login.keychain`
+    sh 'security unlock-keychain -p `cat $HOME/.pass` $HOME/Library/Keychains/login.keychain'
 
     // Load the SCM util scripts first
 
