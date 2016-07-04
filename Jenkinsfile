@@ -12,6 +12,7 @@ node('osx && ios') {
     sh 'security unlock-keychain -p `cat $HOME/.pass` $HOME/Library/Keychains/login.keychain`
 
     // Load the SCM util scripts first
+
     checkout([$class: 'GitSCM',
 		branches: [[name: '*/master']],
 		doGenerateSubmoduleConfigurations: false,
