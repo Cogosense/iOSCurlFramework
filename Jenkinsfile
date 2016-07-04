@@ -5,9 +5,11 @@ properties properties: [
     ]
 ]
 
-node('ios') {
+node('osx && ios') {
     def contributors = null
     currentBuild.result = "SUCCESS"
+
+    sh 'security unlock-keychain -p `cat $HOME/.pass` $HOME/Library/Keychains/login.keychain`
 
     // Load the SCM util scripts first
     checkout([$class: 'GitSCM',
@@ -55,8 +57,7 @@ node('ios') {
 		fingerprint: true,
 		onlyIfSuccessful: true])
 
-    }
-    catch(err) {
+    } catch(err) {
         currentBuild.result = "FAILURE"
         mail subject: "Jenkins Build Failed: (${env.JOB_NAME})",
                 body: "Project build error ${err}.\nFor more information: ${env.BUILD_URL}",
@@ -64,6 +65,8 @@ node('ios') {
                 bcc: 'swilliams@cogosense.com',
                 from: 'support@cogosense.com'
         throw err
+    } finally {
+	sh 'security lock-keychain $HOME/Library/Keychains/login.keychain'
     }
 
     stage 'Notify Build Completion'
