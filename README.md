@@ -1,4 +1,12 @@
-[![Build Status](http://cogosense-jenkins.us-west-2.elasticbeanstalk.com/buildStatus/icon?job=Cogosense/iOSCurlFramework/master&build=70)](http://cogosense-jenkins.us-west-2.elasticbeanstalk.com/job/Cogosense/job/iOSCurlFramework/job/master/70/)
+http://cogosense-jenkins.us-west-2.elasticbeanstalk.com/job/Cogosense/job/iOSCurlFramework/job/master/badge/icon
+
+http://cogosense-jenkins.us-west-2.elasticbeanstalk.com/buildStatus/icon?job=Cogosense/iOSCurlFramework/master
+
+![Build Status](http://cogosense-jenkins.us-west-2.elasticbeanstalk.com/job/Cogosense/job/iOSCurlFramework/job/master/badge/icon)
+
+[![Build Status](http://cogosense-jenkins.us-west-2.elasticbeanstalk.com/job/Cogosense/job/iOSCurlFramework/job/master/badge/icon)](http://cogosense-jenkins.us-west-2.elasticbeanstalk.com/job/Cogosense/job/iOSCurlFramework/job/master/)
+
+[![Build Status](http://cogosense-jenkins.us-west-2.elasticbeanstalk.com/buildStatus/icon?job=Cogosense/iOSCurlFramework/master)](http://cogosense-jenkins.us-west-2.elasticbeanstalk.com/job/Cogosense/iOSCurlFramework/master)
 
 # A Curl library framework for iOS
 
