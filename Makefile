@@ -76,7 +76,7 @@ mostlyclean :
 	$(RM) -r $(SRCDIR)
 
 $(TARBALL) :
-	curl --retry 10 -s -o $@ $(DOWNLOAD_URL) || $(RM) $@
+	curl -L --retry 10 -s -o $@ $(DOWNLOAD_URL) || $(RM) $@
 
 $(SRCDIR)/configure : $(TARBALL)
 	tar xf $(TARBALL)
