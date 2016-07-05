@@ -27,17 +27,19 @@ node('osx && ios') {
 			    submoduleCfg: [],
 			    userRemoteConfigs: [[url: 'git@github.com:Cogosense/JenkinsUtils.git', credentialsId: '38bf8b09-9e52-421a-a8ed-5280fcb921af']]])
 
-		sh 'utils/scmBuildDate > SCM_TIMESTAMP'
-		sh 'utils/scmBuildTag > SCM_TAG'
-		sh 'utils/scmBuildContributors > SCM_CONTRIBUTORS'
-		sh 'utils/scmBuildOnHookEmail > SCM_ONHOOK_EMAIL'
-		sh 'utils/scmCreateChangeLogs -o SCM_CHANGELOG'
-		sh 'utils/scmTagLastBuild'
-		stash name: "scmLogs", includes: 'SCM_*'
+		dir('./SCM') {
+		    sh '../utils/scmBuildDate > TIMESTAMP'
+		    sh '../utils/scmBuildTag > TAG'
+		    sh '../utils/scmBuildContributors > CONTRIBUTORS'
+		    sh '../utils/scmBuildOnHookEmail > ONHOOK_EMAIL'
+		    sh '../utils/scmCreateChangeLogs -o CHANGELOG'
+		    sh '../utils/scmTagLastBuild'
+		}
+		stash name: "scmLogs", includes: 'SCM/**'
 	    }
 
 	    unstash "scmLogs"
-	    contributors = readFile 'SCM_ONHOOK_EMAIL'
+	    contributors = readFile './SCM/ONHOOK_EMAIL'
 
 	    stage 'Notify Build Started'
 	    if(contributors && contributors != '') {
