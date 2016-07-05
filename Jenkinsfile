@@ -9,14 +9,11 @@ node('osx && ios') {
     def contributors = null
     currentBuild.result = "SUCCESS"
 
-    // start with a clean workspace
-    deleteDir()
-
     sshagent(['38bf8b09-9e52-421a-a8ed-5280fcb921af']) {
 	try {
 	    stage name: 'Create Change Logs', concurrency: 1
 	    ws("workspace/${env.JOB_NAME}/../scmLogs") {
-
+		deleteDir()
 		checkout scm
 
 		// Load the SCM util scripts first
