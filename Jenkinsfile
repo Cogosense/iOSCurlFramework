@@ -7,14 +7,13 @@ properties properties: [
 
 node('osx && ios') {
     def contributors = null
+    def scmLogWs = 'scmLogs' + env.BUILD_NUMBER
     currentBuild.result = "SUCCESS"
 
     sshagent(['38bf8b09-9e52-421a-a8ed-5280fcb921af']) {
 	try {
 	    stage name: 'Create Change Logs', concurrency: 1
-	    ws("workspace/${env.JOB_NAME}/../scmLogs") {
-		// clean workspace
-		deleteDir()
+	    ws("workspace/${env.JOB_NAME}/../${scmLogWs}") {
 		checkout scm
 
 		// Load the SCM util scripts first
@@ -25,7 +24,7 @@ node('osx && ios') {
 			    submoduleCfg: [],
 			    userRemoteConfigs: [[url: 'git@github.com:Cogosense/JenkinsUtils.git', credentialsId: '38bf8b09-9e52-421a-a8ed-5280fcb921af']]])
 
-		dir('./curlSCM') {
+		dir('./SCM') {
 		    sh '../utils/scmBuildDate > TIMESTAMP'
 		    sh '../utils/scmBuildTag > TAG'
 		    sh '../utils/scmBuildContributors > CONTRIBUTORS'
@@ -33,14 +32,13 @@ node('osx && ios') {
 		    sh '../utils/scmCreateChangeLogs -o CHANGELOG'
 		    sh '../utils/scmTagLastBuild'
 		}
-		stash name: 'curlSCM', includes: 'curlSCM/**'
-		dir('./tmpSCM') {
-		    unstash 'curlSCM'
-		}
+		stash name: 'curlSCM', includes: 'SCM/**'
+		// clean workspace
+		deleteDir()
 	    }
 
 	    unstash 'curlSCM'
-	    contributors = readFile './curlSCM/ONHOOK_EMAIL'
+	    contributors = readFile './SCM/ONHOOK_EMAIL'
 
 	    stage 'Notify Build Started'
 	    if(contributors && contributors != '') {
@@ -60,7 +58,7 @@ node('osx && ios') {
 	    stage 'Archive Artifacts'
 	    // Archive the SCM logs, the framework directory
 	    step([$class: 'ArtifactArchiver',
-		    artifacts: 'curlSCM/**, curl.framework/**',
+		    artifacts: 'SCM/**, curl.framework/**',
 		    fingerprint: true,
 		    onlyIfSuccessful: true])
 
