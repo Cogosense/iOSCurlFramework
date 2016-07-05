@@ -17,6 +17,9 @@ node('osx && ios') {
 	try {
 	    stage name: 'Create Change Logs', concurrency: 1
 	    ws("workspace/${env.JOB_NAME}/../scmLogs") {
+
+		checkout scm: [$class: 'GitSCM', clean: true, creadentialsId: '38bf8b09-9e52-421a-a8ed-5280fcb921af']
+
 		// Load the SCM util scripts first
 		checkout([$class: 'GitSCM',
 			    branches: [[name: '*/master']],
@@ -25,7 +28,6 @@ node('osx && ios') {
 			    submoduleCfg: [],
 			    userRemoteConfigs: [[url: 'git@github.com:Cogosense/JenkinsUtils.git', credentialsId: '38bf8b09-9e52-421a-a8ed-5280fcb921af']]])
 
-		checkout scm
 		sh 'date | tr -d "\n" > SCM_TIMESTAMP'
 		sh 'echo -n $BUILD_TAG > SCM_TAG'
 		sh 'utils/scmBuildContributors > SCM_CONTRIBUTORS'
