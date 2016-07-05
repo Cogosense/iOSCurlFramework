@@ -27,8 +27,8 @@ node('osx && ios') {
 			    submoduleCfg: [],
 			    userRemoteConfigs: [[url: 'git@github.com:Cogosense/JenkinsUtils.git', credentialsId: '38bf8b09-9e52-421a-a8ed-5280fcb921af']]])
 
-		sh 'scmBuildDate > SCM_TIMESTAMP'
-		sh 'scmBuildTag > SCM_TAG'
+		sh 'utils/scmBuildDate > SCM_TIMESTAMP'
+		sh 'utils/scmBuildTag > SCM_TAG'
 		sh 'utils/scmBuildContributors > SCM_CONTRIBUTORS'
 		sh 'utils/scmBuildOnHookEmail > SCM_ONHOOK_EMAIL'
 		sh 'utils/scmCreateChangeLogs -o SCM_CHANGELOG'
