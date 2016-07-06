@@ -13,14 +13,13 @@ node('osx && ios') {
     // clean workspace
     deleteDir()
     sshagent(['38bf8b09-9e52-421a-a8ed-5280fcb921af']) {
+	stage 'Checkout Source'
 	checkout scm
     }
 
     try {
 	stage name: 'Create Change Logs', concurrency: 1
 	ws("workspace/${env.JOB_NAME}/../${scmLogWs}") {
-	    // clean workspace
-	    deleteDir()
 	    sshagent(['38bf8b09-9e52-421a-a8ed-5280fcb921af']) {
 		checkout scm
 
@@ -42,6 +41,8 @@ node('osx && ios') {
 		}
 	    }
 	    stash name: 'curlSCM', includes: 'SCM/**'
+	    // remove workspace
+	    deleteDir()
 	}
 
 	unstash 'curlSCM'
