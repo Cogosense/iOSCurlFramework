@@ -1,5 +1,7 @@
 # A Curl library framework for iOS
 
+More information on the [curl home page](https://curl.haxx.se/)
+
 The Makefile in this project creates a fat iOS framework bundle that supports the following architectures:
 
 * arm64
