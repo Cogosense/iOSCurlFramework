@@ -2,7 +2,7 @@ SHELL = /bin/bash
 NAME = curl
 VERSION = 7.42.1
 TARBALL = $(NAME)-$(VERSION).tar.gz
-TOPDIR = $(PWD)
+TOPDIR = $(CURDIR)
 SRCDIR = $(NAME)-$(VERSION)
 ARM_ARCH = arm-apple-darwin
 X86_ARCH = i386-apple-darwin
@@ -63,7 +63,7 @@ define curlbuild_h
 #endif\n
 endef
 
-all : framework-build
+all : env framework-build
 
 distclean : clean
 	$(RM) $(TARBALL)
@@ -74,6 +74,9 @@ clean : mostlyclean
 mostlyclean :
 	$(RM) Info.plist
 	$(RM) -r $(SRCDIR)
+
+env :
+	env
 
 $(TARBALL) :
 	curl -L --retry 10 -s -o $@ $(DOWNLOAD_URL) || $(RM) $@
