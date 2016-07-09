@@ -207,7 +207,7 @@ arm64 : $(SRCDIR)/$(ARM_64_ARCH)/$(FRAMEWORKDIR)
 x86 : $(SRCDIR)/$(X86_ARCH)/$(FRAMEWORKDIR)
 x86_64 : $(SRCDIR)/$(X86_64_ARCH)/$(FRAMEWORKDIR)
 
-framework-build: arm arm64 x86 x86_64 $(FRAMEWORKDIR) 
+framework-build: arm arm64 x86 x86_64 $(FRAMEWORKDIR).tar.bz2
 
 #
 # The framework-no-build target is used by Jenkins to assemble
@@ -225,7 +225,7 @@ framework-no-build: \
     $(SRCDIR)/$(ARM_64_ARCH)/$(FRAMEWORKDIR)/bin/$(NAME) \
     $(SRCDIR)/$(X86_ARCH)/$(FRAMEWORKDIR)/bin/$(NAME) \
     $(SRCDIR)/$(X86_64_ARCH)/$(FRAMEWORKDIR)/bin/$(NAME) \
-    $(FRAMEWORKDIR) 
+    $(FRAMEWORKDIR).tar.bz2
 
 $(SRCDIR)/$(ARM_ARCH)/$(FRAMEWORKDIR) : $(SRCDIR)/$(ARM_ARCH)/Makefile
 	make -C $(SRCDIR)/$(ARM_ARCH) DESTDIR=$(TOPDIR)/$(SRCDIR)/$(ARM_ARCH) install
@@ -268,4 +268,8 @@ $(FRAMEWORKDIR) : Info.plist
 	ln -s Versions/Current/Resources Resources ; \
 	ln -s Versions/Current/Documentation Documentation ; \
 	ln -s Versions/Current/$(FRAMEWORK_NAME) $(FRAMEWORK_NAME)
+
+$(FRAMEWORKDIR).tar.bz2 : $(FRAMEWORKDIR)
+	$(RM) -f $(FRAMEWORKDIR).tar.bz2
+	tar -cjf $(FRAMEWORKDIR).tar.bz2 $(FRAMEWORKDIR)
 

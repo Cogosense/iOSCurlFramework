@@ -113,7 +113,7 @@ node('osx && ios') {
 	stage 'Archive Artifacts'
 	// Archive the SCM logs, the framework directory
 	step([$class: 'ArtifactArchiver',
-		artifacts: 'SCM/**, curl.framework/**',
+		artifacts: 'SCM/**, curl.framework.tar.bz2',
 		fingerprint: true,
 		onlyIfSuccessful: true])
 
