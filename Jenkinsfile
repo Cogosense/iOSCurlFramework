@@ -40,13 +40,16 @@ node('osx && ios') {
 		    sh '../utils/scmTagLastBuild'
 		}
 	    }
-	    stash name: 'curlSCM', includes: 'SCM/**'
+	    stash name: 'SCM', includes: 'SCM/**'
 	    // remove workspace
 	    deleteDir()
 	}
 
-	unstash 'curlSCM'
+	unstash 'SCM'
 	contributors = readFile './SCM/ONHOOK_EMAIL'
+
+        stage 'Capture Build Environment'
+	sh 'env -u PWD -u HOME -u PATH -u \'BASH_FUNC_copy_reference_file()\' > SCM/build.env'
 
 	stage 'Notify Build Started'
 	if(contributors && contributors != '') {
