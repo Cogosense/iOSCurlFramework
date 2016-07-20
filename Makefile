@@ -229,6 +229,8 @@ framework-no-build: $(addprefix $(DERIVED_FILE_DIR)/, $(addsuffix /$(FRAMEWORKBU
 
 export curlbuild_h
 
+FIRST_ARCH = $(firstword $(ARCHS))
+
 $(FRAMEWORKBUNDLE) : Info.plist
 	$(RM) -r $(BUILD_DIR)/$(FRAMEWORKBUNDLE)
 	mkdir $(BUILD_DIR)/$(FRAMEWORKBUNDLE)
@@ -236,13 +238,13 @@ $(FRAMEWORKBUNDLE) : Info.plist
 	mkdir $(BUILD_DIR)/$(FRAMEWORKBUNDLE)/Versions/$(FRAMEWORK_VERSION)
 	mkdir $(BUILD_DIR)/$(FRAMEWORKBUNDLE)/Versions/$(FRAMEWORK_VERSION)/Resources
 	cp $(TOPDIR)/Info.plist $(BUILD_DIR)/$(FRAMEWORKBUNDLE)/Versions/$(FRAMEWORK_VERSION)/Resources/
-	cp -R $(DERIVED_FILE_DIR)/$(ARM_V7_ARCH)/$(FRAMEWORKBUNDLE)/include/curl $(BUILD_DIR)/$(FRAMEWORKBUNDLE)/Versions/$(FRAMEWORK_VERSION)/Headers
+	cp -R $(DERIVED_FILE_DIR)/$(FIRST_ARCH)/$(FRAMEWORKBUNDLE)/include/curl $(BUILD_DIR)/$(FRAMEWORKBUNDLE)/Versions/$(FRAMEWORK_VERSION)/Headers
 	$(RM) $(BUILD_DIR)/$(FRAMEWORKBUNDLE)/Versions/$(FRAMEWORK_VERSION)/Headers/curlbuild.h
 	for arch in $(ARCHS) ; do \
 	    cp $(DERIVED_FILE_DIR)/$${arch}/$(FRAMEWORKBUNDLE)/include/curl/curlbuild.h $(BUILD_DIR)/$(FRAMEWORKBUNDLE)/Versions/$(FRAMEWORK_VERSION)/Headers/curlbuild_$${arch}.h ; \
 	done
 	echo -e $$curlbuild_h > $(BUILD_DIR)/$(FRAMEWORKBUNDLE)/Versions/$(FRAMEWORK_VERSION)/Headers/curlbuild.h
-	cp -R $(DERIVED_FILE_DIR)/$(ARM_V7_ARCH)/$(FRAMEWORKBUNDLE)/share $(BUILD_DIR)/$(FRAMEWORKBUNDLE)/Versions/$(FRAMEWORK_VERSION)/Documentation
+	cp -R $(DERIVED_FILE_DIR)/$(FIRST_ARCH)/$(FRAMEWORKBUNDLE)/share $(BUILD_DIR)/$(FRAMEWORKBUNDLE)/Versions/$(FRAMEWORK_VERSION)/Documentation
 	for arch in $(ARCHS) ; do curllibs="$$curllibs $(DERIVED_FILE_DIR)/$$arch/$(FRAMEWORKBUNDLE)/lib/libcurl.a" ; done ; \
 	xcrun -sdk iphoneos lipo -create $$curllibs -o $(BUILD_DIR)/$(FRAMEWORKBUNDLE)/Versions/$(FRAMEWORK_VERSION)/$(FRAMEWORK_NAME)
 	cd $(BUILD_DIR)/$(FRAMEWORKBUNDLE) && set -e ; \
