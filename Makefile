@@ -182,7 +182,7 @@ $(DERIVED_FILE_DIR)/$(ARM_V7S_ARCH)/Makefile \
 $(DERIVED_FILE_DIR)/$(ARM_64_ARCH)/Makefile \
 $(DERIVED_FILE_DIR)/$(I386_ARCH)/Makefile \
 $(DERIVED_FILE_DIR)/$(X86_64_ARCH)/Makefile : $(SRCDIR)/configure
-	 cd $(dir $@) && \
+	cd $(dir $@) && \
 	    $(SRCDIR)/configure \
 		--prefix=/$(FRAMEWORKBUNDLE) \
 		--host=$(AC_HOST) \
@@ -231,28 +231,36 @@ export curlbuild_h
 
 FIRST_ARCH = $(firstword $(ARCHS))
 
-$(FRAMEWORKBUNDLE) : Info.plist
+bundle-dirs :
 	$(RM) -r $(BUILD_DIR)/$(FRAMEWORKBUNDLE)
 	mkdir $(BUILD_DIR)/$(FRAMEWORKBUNDLE)
 	mkdir $(BUILD_DIR)/$(FRAMEWORKBUNDLE)/Versions
 	mkdir $(BUILD_DIR)/$(FRAMEWORKBUNDLE)/Versions/$(FRAMEWORK_VERSION)
 	mkdir $(BUILD_DIR)/$(FRAMEWORKBUNDLE)/Versions/$(FRAMEWORK_VERSION)/Resources
-	cp $(TOPDIR)/Info.plist $(BUILD_DIR)/$(FRAMEWORKBUNDLE)/Versions/$(FRAMEWORK_VERSION)/Resources/
-	cp -R $(DERIVED_FILE_DIR)/$(FIRST_ARCH)/$(FRAMEWORKBUNDLE)/include/curl $(BUILD_DIR)/$(FRAMEWORKBUNDLE)/Versions/$(FRAMEWORK_VERSION)/Headers
+	mkdir $(BUILD_DIR)/$(FRAMEWORKBUNDLE)/Versions/$(FRAMEWORK_VERSION)/Headers
+	mkdir $(BUILD_DIR)/$(FRAMEWORKBUNDLE)/Versions/$(FRAMEWORK_VERSION)/Documentation
+	ln -s $(FRAMEWORK_VERSION) $(BUILD_DIR)/$(FRAMEWORKBUNDLE)/Versions/Current
+	ln -s Versions/Current/Headers $(BUILD_DIR)/$(FRAMEWORKBUNDLE)/Headers
+	ln -s Versions/Current/Resources $(BUILD_DIR)/$(FRAMEWORKBUNDLE)/Resources
+	ln -s Versions/Current/Documentation $(BUILD_DIR)/$(FRAMEWORKBUNDLE)/Documentation
+	ln -s Versions/Current/$(FRAMEWORK_NAME) $(BUILD_DIR)/$(FRAMEWORKBUNDLE)/$(FRAMEWORK_NAME)
+
+bundle-resources : Info.plist bundle-dirs
+	cp Info.plist $(BUILD_DIR)/$(FRAMEWORKBUNDLE)/Versions/$(FRAMEWORK_VERSION)/Resources/
+
+bundle-headers : bundle-dirs
+	cp -R $(DERIVED_FILE_DIR)/$(FIRST_ARCH)/$(FRAMEWORKBUNDLE)/include/curl/ $(BUILD_DIR)/$(FRAMEWORKBUNDLE)/Versions/$(FRAMEWORK_VERSION)/Headers/
 	$(RM) $(BUILD_DIR)/$(FRAMEWORKBUNDLE)/Versions/$(FRAMEWORK_VERSION)/Headers/curlbuild.h
 	for arch in $(ARCHS) ; do \
 	    cp $(DERIVED_FILE_DIR)/$${arch}/$(FRAMEWORKBUNDLE)/include/curl/curlbuild.h $(BUILD_DIR)/$(FRAMEWORKBUNDLE)/Versions/$(FRAMEWORK_VERSION)/Headers/curlbuild_$${arch}.h ; \
 	done
 	echo -e $$curlbuild_h > $(BUILD_DIR)/$(FRAMEWORKBUNDLE)/Versions/$(FRAMEWORK_VERSION)/Headers/curlbuild.h
-	cp -R $(DERIVED_FILE_DIR)/$(FIRST_ARCH)/$(FRAMEWORKBUNDLE)/share $(BUILD_DIR)/$(FRAMEWORKBUNDLE)/Versions/$(FRAMEWORK_VERSION)/Documentation
-	for arch in $(ARCHS) ; do curllibs="$$curllibs $(DERIVED_FILE_DIR)/$$arch/$(FRAMEWORKBUNDLE)/lib/libcurl.a" ; done ; \
-	xcrun -sdk iphoneos lipo -create $$curllibs -o $(BUILD_DIR)/$(FRAMEWORKBUNDLE)/Versions/$(FRAMEWORK_VERSION)/$(FRAMEWORK_NAME)
-	cd $(BUILD_DIR)/$(FRAMEWORKBUNDLE) && set -e ; \
-	ln -s $(FRAMEWORK_VERSION) Versions/Current ; \
-	ln -s Versions/Current/Headers Headers ; \
-	ln -s Versions/Current/Resources Resources ; \
-	ln -s Versions/Current/Documentation Documentation ; \
-	ln -s Versions/Current/$(FRAMEWORK_NAME) $(FRAMEWORK_NAME)
+
+bundle-libraries : bundle-dirs
+	for arch in $(ARCHS) ; do libs="$$libs $(DERIVED_FILE_DIR)/$$arch/$(FRAMEWORKBUNDLE)/lib/libcurl.a" ; done ; \
+	xcrun -sdk iphoneos lipo -create $$libs -o $(BUILD_DIR)/$(FRAMEWORKBUNDLE)/Versions/$(FRAMEWORK_VERSION)/$(FRAMEWORK_NAME)
+
+$(FRAMEWORKBUNDLE) : bundle-dirs bundle-resources bundle-headers bundle-libraries
 
 $(FRAMEWORKBUNDLE).tar.bz2 : $(FRAMEWORKBUNDLE)
 	$(RM) -f $(FRAMEWORKBUNDLE).tar.bz2
