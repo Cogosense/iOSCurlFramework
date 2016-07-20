@@ -79,7 +79,7 @@ node('osx && ios') {
 	unstash 'arm64'
 
 	stage 'Assemble Framework'
-	sh 'make ARCHS='armv7 arm64' framework-no-build'
+	sh 'make ARCHS="armv7 arm64" framework-no-build'
 
 	stage 'Archive Artifacts'
 	// Archive the SCM logs, the framework directory
