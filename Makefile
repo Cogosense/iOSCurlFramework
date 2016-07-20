@@ -19,6 +19,18 @@ SHELL = /bin/bash
 #
 MIN_IOS_VER = 6.1
 
+#
+# enable bitcode support
+#
+ifeq "$(ENABLE_BITCODE)" "YES"
+    ifeq "$(BITCODE_GENERATION_MODE)" "marker"
+	XCODE_BITCODE_FLAG = -fembed-bitcode-marker
+    endif
+    ifeq "$(BITCODE_GENERATION_MODE)" "bitcode"
+	XCODE_BITCODE_FLAG = -fembed-bitcode
+    endif
+endif
+
 empty:=
 space:= $(empty) $(empty)
 comma:= ,
@@ -197,7 +209,8 @@ $(DERIVED_FILE_DIR)/$(X86_64_ARCH)/Makefile : $(SRCDIR)/configure
 		--without-libssh2 \
 		--with-darwinssl \
 		-without-libidn \
-		CC='xcrun --sdk $(AC_SDK) clang -fembed-bitcode -miphoneos-version-min=$(MIN_IOS_VER) $(AC_C_ARCH)' \
+		CC='xcrun --sdk $(AC_SDK) clang $(AC_C_ARCH)' \
+		CFLAGS='-miphoneos-version-min=$(MIN_IOS_VER) $(XCODE_BITCODE_FLAG)' \
 		CPP='xcrun --sdk $(AC_SDK) clang $(AC_CPP_ARCH) -E' \
 		AR='xcrun --sdk $(AC_SDK) ar' \
 		LD='xcrun --sdk $(AC_SDK) ld' \
