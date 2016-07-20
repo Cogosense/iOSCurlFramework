@@ -1,5 +1,5 @@
 #
-# supports architectures armv7, armv7s, arm64, i386 and x86_64
+# supports architectures armv7, armv7s, arm64, i386, x86_64 and bitcode
 #
 # make - build a fat archive framework using $ARCHS, if $ARCHS is empty all architectures are built (device and simulator)
 # make ARCHS=i386   \
@@ -12,6 +12,12 @@
 # From xcode build script:
 # make ARCHS=${ARCHS} - build all active architectures
 #
+# Xcode bitcode support:
+# make ARCHS="armv7 arm64" ENABLE_BITCODE=YES BITCODE_GENERATION_MODE=bitcode - create bitcode
+# make ARCHS="armv7 arm64" ENABLE_BITCODE=YES BITCODE_GENERATION_MODE=marker - add bitcode marker (but no real bitcode)
+#
+# The bitcode flags are standard Xcode flags.
+
 SHELL = /bin/bash
 
 #
