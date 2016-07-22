@@ -53,6 +53,7 @@ ARCHS ?= $(ARM_V7_ARCH) $(ARM_V7S_ARCH) $(ARM_64_ARCH) $(I386_ARCH) $(X86_64_ARC
 BUILT_PRODUCTS_DIR ?= $(TOPDIR)/build
 OBJECT_FILE_DIR ?= $(TOPDIR)/build
 DERIVED_SOURCES_DIR ?= $(TOPDIR)/build
+PROJECT_TEMP_DIR ?= $(TOPDIR)/build
 SRCROOT = $(DERIVED_SOURCES_DIR)
 BUILDROOT = $(OBJECT_FILE_DIR)
 SRCDIR = $(SRCROOT)/$(NAME)-$(VERSION)
@@ -142,7 +143,7 @@ endef
 all : framework-build
 
 distclean : clean
-	$(RM) $(SRCROOT)/$(TARBALL)
+	$(RM) $(PROJECT_TEMP_DIR)/$(TARBALL)
 
 clean : mostlyclean
 	$(RM) -r $(BUILT_PRODUCTS_DIR)/$(FRAMEWORKBUNDLE)
@@ -160,12 +161,16 @@ mostlyclean :
 env :
 	env
 
-$(SRCROOT)/$(TARBALL) :
-	mkdir -p $(SRCROOT)
-	curl -L --retry 10 -s -o $@ $(DOWNLOAD_URL) || $(RM) $@
+$(PROJECT_TEMP_DIR)/$(TARBALL) :
+	mkdir -p $(PROJECT_TEMP_DIR)
+	curl -L --retry 10 -s -o $@ $(DOWNLOAD_URL) || { \
+	    $(RM) $@ ; \
+	    exit 1 ; \
+	}
 
-$(SRCDIR)/configure : $(SRCROOT)/$(TARBALL)
-	tar -C $(SRCROOT) -xmf $(SRCROOT)/$(TARBALL)
+$(SRCDIR)/configure : $(PROJECT_TEMP_DIR)/$(TARBALL)
+	mkdir -p $(SRCROOT)
+	tar -C $(SRCROOT) -xmf $(PROJECT_TEMP_DIR)/$(TARBALL)
 
 $(BUILDROOT)/$(ARM_V7_ARCH) \
 $(BUILDROOT)/$(ARM_V7S_ARCH) \
