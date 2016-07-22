@@ -16,17 +16,17 @@
 /* End PBXGroup section */
 
 /* Begin PBXLegacyTarget section */
-		F11C51021D2EF8F5008DC313 /* iOSCurlFramework */ = {
+		F11C51021D2EF8F5008DC313 /* curl.framework */ = {
 			isa = PBXLegacyTarget;
 			buildArgumentsString = "$(ACTION)";
-			buildConfigurationList = F11C51031D2EF8F5008DC313 /* Build configuration list for PBXLegacyTarget "iOSCurlFramework" */;
+			buildConfigurationList = F11C51031D2EF8F5008DC313 /* Build configuration list for PBXLegacyTarget "curl.framework" */;
 			buildPhases = (
 			);
 			buildToolPath = /usr/bin/make;
 			buildWorkingDirectory = "";
 			dependencies = (
 			);
-			name = iOSCurlFramework;
+			name = curl.framework;
 			passBuildSettingsInEnvironment = 1;
 			productName = iOSCurlFramework;
 		};
@@ -56,7 +56,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				F11C51021D2EF8F5008DC313 /* iOSCurlFramework */,
+				F11C51021D2EF8F5008DC313 /* curl.framework */,
 			);
 		};
 /* End PBXProject section */
@@ -179,7 +179,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		F11C51031D2EF8F5008DC313 /* Build configuration list for PBXLegacyTarget "iOSCurlFramework" */ = {
+		F11C51031D2EF8F5008DC313 /* Build configuration list for PBXLegacyTarget "curl.framework" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				F11C51041D2EF8F5008DC313 /* Debug */,
