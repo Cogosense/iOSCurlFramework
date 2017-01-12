@@ -22,6 +22,11 @@
 SHELL = /bin/bash
 
 #
+# set or unset warning flags
+#
+WFLAGS = -Wno-tautological-pointer-compare -Wno-deprecated-declarations
+
+#
 # set minimum iOS version supported
 #
 ifneq "$(IPHONEOS_DEPLOYMENT_TARGET)" ""
@@ -47,7 +52,7 @@ space:= $(empty) $(empty)
 comma:= ,
 
 NAME = curl
-VERSION = 7.42.1
+VERSION = 7.51.0
 TOPDIR = $(CURDIR)
 #
 # ARCHS, BUILT_PRODUCTS_DIR and DERIVED_FILE_DIR are set by xcode
@@ -244,7 +249,7 @@ $(BUILDROOT)/$(X86_64_ARCH)/Makefile : $(SRCDIR)/configure
 		--with-darwinssl \
 		-without-libidn \
 		CC='xcrun --sdk $(AC_SDK) clang $(AC_C_ARCH)' \
-		CFLAGS='-miphoneos-version-min=$(MIN_IOS_VER) $(XCODE_BITCODE_FLAG)' \
+		CFLAGS='-miphoneos-version-min=$(MIN_IOS_VER) $(XCODE_BITCODE_FLAG) $(WFLAGS)' \
 		CPP='xcrun --sdk $(AC_SDK) clang $(AC_CPP_ARCH) -E' \
 		AR='xcrun --sdk $(AC_SDK) ar' \
 		LD='xcrun --sdk $(AC_SDK) ld' \
