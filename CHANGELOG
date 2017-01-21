@@ -56,3 +56,10 @@ d989388: steve.williams@telxio.com               : Unlock keychain
 c78ac7f: steve.williams@telxio.com               : Add missing quotes
 fa83776: steve.williams@telxio.com               : Add initial Jenkinsfile
 2899055: steve.williams@telxio.com               : Initial checkin
+
+Production 4.2.0 created on Fri 20 Jan 2017 18:07:03 PST
+================================================================================
+ccb9752: steve.williams@telxio.com               : increase version from 7.42.1 to 7.51.0
+46a8043: steve.williams@telxio.com               : Added CHANGELOG
+1833619: steve.williams@telxio.com               : Development started for 4.1.0_dev
+d43ca46: steve.williams@telxio.com               : Development started for 4.1.0_dev
