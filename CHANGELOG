@@ -63,3 +63,12 @@ ccb9752: steve.williams@telxio.com               : increase version from 7.42.1 
 46a8043: steve.williams@telxio.com               : Added CHANGELOG
 1833619: steve.williams@telxio.com               : Development started for 4.1.0_dev
 d43ca46: steve.williams@telxio.com               : Development started for 4.1.0_dev
+
+Production 4.3.0 created on Tue 21 Mar 2017 16:34:26 PDT
+================================================================================
+6609f78: steve.williams@telxio.com               : clean workspace before checkout
+9b7a50a: steve.williams@telxio.com               : simplify changelog generation
+06846e8: steve.williams@telxio.com               : remove dependency of BUILT_LIBS on framework.tar.bz2 - it causes library to be rebuilt when using target framework-no-build
+02a7db2: steve.williams@telxio.com               : change to new style stage blocks, use common pipeline Utils
+3b1a059: steve.williams@telxio.com               : fix empty email stage problem in DEV by echoing message
+f086ded: steve.williams@telxio.com               : Only send build email in production
