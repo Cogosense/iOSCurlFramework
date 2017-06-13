@@ -149,7 +149,7 @@ define curlbuild_h
 #endif\n
 endef
 
-all : framework-build
+all install : framework-build
 
 distclean : clean
 	$(RM) $(PROJECT_TEMP_DIR)/$(TARBALL)

@@ -5,3 +5,4 @@ curl*
 Info.plist
 build/
 **/xcuserdata
+DerivedData/
