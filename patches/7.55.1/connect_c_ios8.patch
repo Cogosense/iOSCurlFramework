@@ -1,0 +1,15 @@
+--- curl-7.55.1/lib/connect.c	2017-09-26 18:31:48.000000000 -0700
++++ curl-7.55.1.patched/lib/connect.c	2017-09-26 18:35:36.000000000 -0700
+@@ -1066,9 +1066,12 @@
+       endpoints.sae_dstaddr = &addr.sa_addr;
+       endpoints.sae_dstaddrlen = addr.addrlen;
+ 
++#pragma GCC diagnostic push
++#pragma GCC diagnostic ignored "-Wpartial-availability"
+       rc = connectx(sockfd, &endpoints, SAE_ASSOCID_ANY,
+                     CONNECT_RESUME_ON_READ_WRITE | CONNECT_DATA_IDEMPOTENT,
+                     NULL, 0, NULL, NULL);
++#pragma GCC diagnostic pop
+ #elif defined(MSG_FASTOPEN) /* Linux */
+       if(conn->given->flags & PROTOPT_SSL)
+         rc = connect(sockfd, &addr.sa_addr, addr.addrlen);

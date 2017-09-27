@@ -52,7 +52,7 @@ space:= $(empty) $(empty)
 comma:= ,
 
 NAME = curl
-VERSION = 7.51.0
+VERSION = 7.55.1
 TOPDIR = $(CURDIR)
 #
 # ARCHS, BUILT_PRODUCTS_DIR and DERIVED_FILE_DIR are set by xcode
@@ -180,6 +180,14 @@ $(PROJECT_TEMP_DIR)/$(TARBALL) :
 $(SRCDIR)/configure : $(PROJECT_TEMP_DIR)/$(TARBALL)
 	mkdir -p $(SRCROOT)
 	tar -C $(SRCROOT) -xmf $(PROJECT_TEMP_DIR)/$(TARBALL)
+	if [ -d patches/$(VERSION) ] ; then \
+		for p in patches/$(VERSION)/* ; do \
+			if [ -f $$p ] ; then \
+				patch -d $(SRCDIR) -p1 < $$p ; \
+			fi ; \
+		done ; \
+	fi
+
 
 $(BUILDROOT)/$(ARM_V7_ARCH) \
 $(BUILDROOT)/$(ARM_V7S_ARCH) \
