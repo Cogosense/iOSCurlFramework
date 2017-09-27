@@ -181,7 +181,7 @@ $(SRCDIR)/configure : $(PROJECT_TEMP_DIR)/$(TARBALL)
 	mkdir -p $(SRCROOT)
 	tar -C $(SRCROOT) -xmf $(PROJECT_TEMP_DIR)/$(TARBALL)
 	if [ -d patches/$(VERSION) ] ; then \
-		for p in patches/$(VERSION)/* ; do \
+		for p in patches/$(VERSION)/*.patch ; do \
 			if [ -f $$p ] ; then \
 				patch -d $(SRCDIR) -p1 < $$p ; \
 			fi ; \
