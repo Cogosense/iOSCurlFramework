@@ -119,36 +119,6 @@ define Info_plist
 </plist>\n
 endef
 
-define curlbuild_h
-//\n
-// Generated wrapper to support mach fat archives\n
-// with multiple architectures.\n
-//\n
-// libcurl generates an architecture specific header\n
-// file during the build process. These must be combined\n
-// into the framework and the correct one selected at\n
-// compile time.\n
-//\n
-#ifndef CURLBUILD_WRAPPER_H\n
-#define CURLBUILD_WRAPPER_H\n
-#ifdef __arm64__\n
-#include "curlbuild_$(ARM_64_ARCH).h"\n
-#endif\n
-#ifdef __armv7__\n
-#include "curlbuild_$(ARM_V7_ARCH).h"\n
-#endif\n
-#ifdef __armv7s__\n
-#include "curlbuild_$(ARM_V7S_ARCH).h"\n
-#endif\n
-#ifdef __x86_64__\n
-#include "curlbuild_$(X86_64_ARCH).h"\n
-#endif\n
-#ifdef __i386__\n
-#include "curlbuild_$(I386_ARCH).h"\n
-#endif\n
-#endif\n
-endef
-
 all install : framework-build
 
 distclean : clean
@@ -316,8 +286,6 @@ $(FRAMEWORKBUNDLE).tar.bz2 : $(FRAMEWORKBUNDLE_DEPS)
 	$(RM) $(FRAMEWORKBUNDLE).tar.bz2
 	tar -C $(BUILT_PRODUCTS_DIR) -cjf $(FRAMEWORKBUNDLE).tar.bz2 $(FRAMEWORKBUNDLE)
 
-export curlbuild_h
-
 FIRST_ARCH = $(firstword $(ARCHS))
 
 .PHONY : bundle-dirs bundle-resources bundle-headers bundle-libraries
@@ -342,11 +310,6 @@ bundle-resources : Info.plist bundle-dirs
 
 bundle-headers : bundle-dirs
 	cp -a $(BUILDROOT)/$(FIRST_ARCH)/$(FRAMEWORKBUNDLE)/include/curl/ $(BUILT_PRODUCTS_DIR)/$(FRAMEWORKBUNDLE)/Versions/$(FRAMEWORK_VERSION)/Headers/
-	$(RM) $(BUILT_PRODUCTS_DIR)/$(FRAMEWORKBUNDLE)/Versions/$(FRAMEWORK_VERSION)/Headers/curlbuild.h
-	for arch in $(ARCHS) ; do \
-	    cp -a $(BUILDROOT)/$${arch}/$(FRAMEWORKBUNDLE)/include/curl/curlbuild.h $(BUILT_PRODUCTS_DIR)/$(FRAMEWORKBUNDLE)/Versions/$(FRAMEWORK_VERSION)/Headers/curlbuild_$${arch}.h ; \
-	done
-	echo -e $$curlbuild_h > $(BUILT_PRODUCTS_DIR)/$(FRAMEWORKBUNDLE)/Versions/$(FRAMEWORK_VERSION)/Headers/curlbuild.h
 
 bundle-libraries : bundle-dirs
 	xcrun -sdk iphoneos lipo -create $(BUILT_LIBS) -o $(BUILT_PRODUCTS_DIR)/$(FRAMEWORKBUNDLE)/Versions/$(FRAMEWORK_VERSION)/$(FRAMEWORK_NAME)
