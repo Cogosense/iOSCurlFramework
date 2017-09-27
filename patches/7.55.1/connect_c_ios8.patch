@@ -1,0 +1,16 @@
+--- curl-7.55.1/lib/connect.c	2017-08-12 06:28:13.000000000 -0700
++++ curl-7.55.1.patched/lib/connect.c	2017-09-26 21:12:11.000000000 -0700
+@@ -1066,9 +1066,13 @@
+       endpoints.sae_dstaddr = &addr.sa_addr;
+       endpoints.sae_dstaddrlen = addr.addrlen;
+ 
++#if __has_builtin(connectx)
+       rc = connectx(sockfd, &endpoints, SAE_ASSOCID_ANY,
+                     CONNECT_RESUME_ON_READ_WRITE | CONNECT_DATA_IDEMPOTENT,
+                     NULL, 0, NULL, NULL);
++#else
++      rc = connect(sockfd, &addr.sa_addr, addr.addrlen);
++#endif
+ #elif defined(MSG_FASTOPEN) /* Linux */
+       if(conn->given->flags & PROTOPT_SSL)
+         rc = connect(sockfd, &addr.sa_addr, addr.addrlen);
