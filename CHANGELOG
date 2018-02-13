@@ -72,3 +72,14 @@ Production 4.3.0 created on Tue 21 Mar 2017 16:34:26 PDT
 02a7db2: steve.williams@telxio.com               : change to new style stage blocks, use common pipeline Utils
 3b1a059: steve.williams@telxio.com               : fix empty email stage problem in DEV by echoing message
 f086ded: steve.williams@telxio.com               : Only send build email in production
+
+Production 4.4.0 created on Mon 12 Feb 2018 17:15:45 PST
+================================================================================
+424ad8d: steve.williams@telxio.com               : update build settings to recommended for xcode9
+6d7f85d: steve.williams@telxio.com               : Merge branch '4.3.0'
+794426c: steve.williams@telxio.com               : issue #2 curlbuild.h no longer part of distribution
+5b9ffb4: steve.williams@telxio.com               : issue #2 use new __has_builtin macro
+0e2aff5: steve.williams@telxio.com               : issue #2 suppress warning connectx unavailable in iOS8
+995d762: steve.williams@telxio.com               : Merge branch '4.3.0'
+fc49de5: steve.williams@telxio.com               : issue #1 enabled bitcode generation
+74386ce: steve.williams@telxio.com               : rebuild fat archive if requested ARCHS changes
