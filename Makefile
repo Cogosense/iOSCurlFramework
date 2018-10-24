@@ -128,6 +128,7 @@ clean : mostlyclean
 	$(RM) -r $(BUILT_PRODUCTS_DIR)/$(FRAMEWORKBUNDLE)
 	$(RM) -r $(SRCDIR)
 	$(RM) $(FRAMEWORKBUNDLE).tar.bz2
+	$(RM) -r DerivedData
 
 mostlyclean :
 	$(RM) Info.plist
