@@ -63,7 +63,6 @@ ARM_V7S_ARCH = armv7s
 ARM_64_ARCH = arm64
 I386_ARCH = i386
 X86_64_ARCH = x86_64
-:w
 
 #
 # set or unset warning flags
@@ -255,7 +254,7 @@ bundle-headers : bundle-dirs
 	rsync --progress -r -u $(MAKER_BUILDROOT_DIR)/$(FIRST_ARCH)/$(FRAMEWORKBUNDLE)$(INSTALLED_HEADER_DIR)/* $(BUILT_PRODUCTS_DIR)/$(FRAMEWORKBUNDLE)/Headers
 
 $(BUILT_PRODUCTS_DIR)/$(FRAMEWORKBUNDLE)/Info.plist :
-	cp curl/Info.plist $@
+	cp $(FRAMEWORK_NAME)/Info.plist $@
 	/usr/libexec/plistbuddy -c "Set:CFBundleDevelopmentRegion English" $@
 	/usr/libexec/plistbuddy -c "Set:CFBundleExecutable $(NAME)" $@
 	/usr/libexec/plistbuddy -c "Set:CFBundleName $(FRAMEWORK_NAME)" $@

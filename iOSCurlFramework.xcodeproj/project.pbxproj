@@ -53,11 +53,11 @@
 /* Begin PBXLegacyTarget section */
 		F11C51021D2EF8F5008DC313 /* curl.framework */ = {
 			isa = PBXLegacyTarget;
-			buildArgumentsString = "$(ACTION)";
+			buildArgumentsString = "-f Makefile.legacy $(ACTION)";
 			buildConfigurationList = F11C51031D2EF8F5008DC313 /* Build configuration list for PBXLegacyTarget "curl.framework" */;
 			buildPhases = (
 			);
-			buildToolPath = "/usr/bin/make -f Makefile.legacy";
+			buildToolPath = /usr/bin/make;
 			buildWorkingDirectory = "";
 			dependencies = (
 			);

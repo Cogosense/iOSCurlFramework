@@ -240,7 +240,7 @@ $(BUILDROOT)/$(X86_64_ARCH)/Makefile : $(SRCDIR)/configure
 
 export Info_plist
 
-Info.plist : Makefile
+Info.plist : Makefile.legacy
 	echo -e $$Info_plist > $@
 
 .PHONY : framework-archs-cmp
@@ -283,7 +283,7 @@ framework-no-build: FRAMEWORKBUNDLE_DEPS = $(NOBUILD_ARTIFACTS)
 framework-no-build: framework-archs-cmp $(NOBUILD_ARTIFACTS) $(FRAMEWORKBUNDLE).tar.bz2
 
 $(FRAMEWORKBUNDLE).tar.bz2 : $(FRAMEWORKBUNDLE_DEPS)
-	$(MAKE) bundle
+	$(MAKE) -f Makefile.legacy bundle
 	$(RM) $(FRAMEWORKBUNDLE).tar.bz2
 	tar -C $(BUILT_PRODUCTS_DIR) -cjf $(FRAMEWORKBUNDLE).tar.bz2 $(FRAMEWORKBUNDLE)
 
