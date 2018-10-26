@@ -6,14 +6,49 @@
 	objectVersion = 48;
 	objects = {
 
+/* Begin PBXFileReference section */
+		F1F7EEFB2182DD2400EED9CA /* curl.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = curl.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F1F7EEFE2182DD2400EED9CA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		F1F7EEF82182DD2400EED9CA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
 /* Begin PBXGroup section */
 		F11C50ED1D2EF7C2008DC313 = {
 			isa = PBXGroup;
 			children = (
+				F1F7EEFB2182DD2400EED9CA /* curl.framework */,
+				F1F7EEFC2182DD2400EED9CA /* curl */,
 			);
 			sourceTree = "<group>";
 		};
+		F1F7EEFC2182DD2400EED9CA /* curl */ = {
+			isa = PBXGroup;
+			children = (
+				F1F7EEFE2182DD2400EED9CA /* Info.plist */,
+			);
+			path = curl;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		F1F7EEF62182DD2400EED9CA /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
 
 /* Begin PBXLegacyTarget section */
 		F11C51021D2EF8F5008DC313 /* curl.framework */ = {
@@ -22,7 +57,7 @@
 			buildConfigurationList = F11C51031D2EF8F5008DC313 /* Build configuration list for PBXLegacyTarget "curl.framework" */;
 			buildPhases = (
 			);
-			buildToolPath = /usr/bin/make;
+			buildToolPath = "/usr/bin/make -f Makefile.legacy";
 			buildWorkingDirectory = "";
 			dependencies = (
 			);
@@ -31,6 +66,28 @@
 			productName = curl.framework;
 		};
 /* End PBXLegacyTarget section */
+
+/* Begin PBXNativeTarget section */
+		F1F7EEFA2182DD2400EED9CA /* curl */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F1F7EF022182DD2400EED9CA /* Build configuration list for PBXNativeTarget "curl" */;
+			buildPhases = (
+				F1F7EEF62182DD2400EED9CA /* Headers */,
+				F1F7EEF72182DD2400EED9CA /* Sources */,
+				F1F7EEF82182DD2400EED9CA /* Frameworks */,
+				F1F7EF032182DD2B00EED9CA /* Make curl */,
+				F1F7EEF92182DD2400EED9CA /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = curl;
+			productName = curl;
+			productReference = F1F7EEFB2182DD2400EED9CA /* curl.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+/* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		F11C50EE1D2EF7C2008DC313 /* Project object */ = {
@@ -41,6 +98,10 @@
 				TargetAttributes = {
 					F11C51021D2EF8F5008DC313 = {
 						CreatedOnToolsVersion = 7.3.1;
+					};
+					F1F7EEFA2182DD2400EED9CA = {
+						CreatedOnToolsVersion = 10.0;
+						ProvisioningStyle = Manual;
 					};
 				};
 			};
@@ -57,9 +118,52 @@
 			projectRoot = "";
 			targets = (
 				F11C51021D2EF8F5008DC313 /* curl.framework */,
+				F1F7EEFA2182DD2400EED9CA /* curl */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		F1F7EEF92182DD2400EED9CA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		F1F7EF032182DD2B00EED9CA /* Make curl */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Make curl";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nmake ${ACTION}\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		F1F7EEF72182DD2400EED9CA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
 		F11C50FD1D2EF7C2008DC313 /* Debug */ = {
@@ -90,6 +194,7 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
 				COPY_PHASE_STRIP = NO;
@@ -148,6 +253,7 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
 				COPY_PHASE_STRIP = NO;
@@ -199,6 +305,71 @@
 			};
 			name = Release;
 		};
+		F1F7EF002182DD2400EED9CA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = "";
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = curl/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.cogosense.curl;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		F1F7EF012182DD2400EED9CA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = "";
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = curl/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.cogosense.curl;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -216,6 +387,15 @@
 			buildConfigurations = (
 				F11C51041D2EF8F5008DC313 /* Debug */,
 				F11C51051D2EF8F5008DC313 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F1F7EF022182DD2400EED9CA /* Build configuration list for PBXNativeTarget "curl" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F1F7EF002182DD2400EED9CA /* Debug */,
+				F1F7EF012182DD2400EED9CA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

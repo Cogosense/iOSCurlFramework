@@ -1,8 +1,9 @@
 *.bak
 *.swp
 .DS_Store
-curl*
-Info.plist
-build/
+/Info.plist
+/build/
 **/xcuserdata
-DerivedData/
+/DerivedData/
+/curl.framework.tar.bz2
+/Carthage
