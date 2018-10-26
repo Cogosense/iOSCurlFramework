@@ -52,7 +52,7 @@ node('osx && ios') {
         }
 
         stage ('Build Parallel') {
-            stash name: 'Makefile', includes: 'Makefile,patches/**'
+            stash name: 'Makefile', includes: 'Makefile,curl/**,patches/**'
             parallel (
                 "armv7" : {
                     node('osx && ios') {
