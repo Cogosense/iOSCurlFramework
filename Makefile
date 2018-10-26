@@ -133,6 +133,10 @@ install : install-commence dirs tarball configure makefiles builds bundle instal
 
 clean :
 	$(RM) -r $(BUILT_PRODUCTS_DIR)
+	$(RM) -r DerivedData
+	$(RM) -r Carthage
+	$(RM) *.framework.tar.bz2
+	$(RM) Info.plist
 
 build-commence :
 	@echo "Commencing debug build for framework: $(FRAMEWORK_NAME)"
