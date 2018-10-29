@@ -21,7 +21,7 @@ by [Carthage](https://github.com/Carthage/Carthage).
 To add **iOSCurlFramework** to your project, first create a *Cartfile* in your project's root
 with the following contents:
 
-    github "Cogosense/iOSCurlFramework"
+    github "Cogosense/iOSCurlFramework" >= 7.61.1
 
 Then build with Carthage:
 
