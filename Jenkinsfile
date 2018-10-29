@@ -98,7 +98,8 @@ node('osx && ios') {
                 fingerprint: true,
                 onlyIfSuccessful: true])
         }
-    } catch(err) {
+    }
+    catch(err) {
         currentBuild.result = "FAILURE"
         Utils.&sendFailureEmail(contributors, err)
         throw err
