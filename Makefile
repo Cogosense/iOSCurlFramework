@@ -24,7 +24,7 @@ SHELL = /bin/bash
 #
 # library to be built
 NAME = curl
-VERSION = 7.61.1
+VERSION = 7.65.1
 
 #
 # Download location URL
